@@ -42,6 +42,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #ifdef HAVE_TOUCHSCREENGUI
 #include "gui/touchscreengui.h"
+#include "hud.h"
 #endif
 
 #define OBJECT_CROSSHAIR_LINE_SIZE 8
@@ -737,8 +738,22 @@ void Hud::drawStatbar(v2s32 pos, u16 corner, u16 drawdir,
 	}
 }
 
+void Hud::drawCustomHudItems()
+{
+	for (HudItem& item : m_hud_items) {
+		item.draw();
+	}
+	
+	video::ITexture *texture = tsrc->getTexture("cdb_add");
+	const v2u32 &windowSize = RenderingEngine::getWindowSize();
 
-void Hud::drawHotbar(u16 playeritem) {
+	// Move this to separate class
+	draw2DImageFilterScaled(driver, texture, core::rect<s32>(60, windowSize.Y - 100, 160, windowSize.Y),
+	 core::rect<s32>(60,  windowSize.Y - 100, 160, windowSize.Y), NULL, hbar_colors, true);
+}
+
+void Hud::drawHotbar(u16 playeritem)
+{
 
 	v2s32 centerlowerpos(m_displaycenter.X, m_screensize.Y);
 
@@ -772,7 +787,6 @@ void Hud::drawHotbar(u16 playeritem) {
 		}
 	}
 }
-
 
 void Hud::drawCrosshair()
 {

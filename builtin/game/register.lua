@@ -493,8 +493,8 @@ local function make_registration()
 			mod = core.get_current_modname() or "??",
 			name = debug.getinfo(1, "n").name or "??"
 		}
-		--local origin = core.callback_origins[func]
-		--print(origin.name .. ": " .. origin.mod .. " registering cbk " .. tostring(func))
+		local origin = core.callback_origins[func]
+		print(origin.name .. ": " .. origin.mod .. " registering cbk " .. tostring(func))
 	end
 	return t, registerfunc
 end
@@ -634,6 +634,7 @@ core.registered_allow_player_inventory_actions, core.register_allow_player_inven
 core.registered_on_rightclickplayers, core.register_on_rightclickplayer = make_registration()
 core.registered_on_liquid_transformed, core.register_on_liquid_transformed = make_registration()
 core.registered_on_mapblocks_changed, core.register_on_mapblocks_changed = make_registration()
+core.registered_on_pointed_node_changed, core.register_on_pointed_node_changed = make_registration()
 
 core.register_on_mods_loaded(function()
 	core.after(0, function()

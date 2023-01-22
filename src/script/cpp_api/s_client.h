@@ -57,6 +57,7 @@ public:
 	bool on_punchnode(v3s16 p, MapNode node);
 	bool on_placenode(const PointedThing &pointed, const ItemDefinition &item);
 	bool on_item_use(const ItemStack &item, const PointedThing &pointed);
+	bool on_pointed_node_changed(const PointedThing &pointed, MapNode node);
 
 	bool on_inventory_open(Inventory *inventory);
 

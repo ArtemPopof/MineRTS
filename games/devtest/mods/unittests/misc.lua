@@ -177,3 +177,25 @@ local function test_on_mapblocks_changed(cb, player, pos)
 	end
 end
 unittests.register("test_on_mapblocks_changed", test_on_mapblocks_changed, {map=true, async=true})
+
+local finish_test_on_pointed_node_changed
+
+minetest.register_on_pointed_node_changed(function(pointed_thing, node)
+	if finish_test_on_pointed_node_changed then
+		finish_test_on_pointed_node_changed(pointed_thing, node)
+		finish_test_on_pointed_node_changed = nil
+	end
+end)
+
+local function test_on_pointed_node_changed(cb, player, pos)
+	minetest.load_area(pos)
+	finish_test_on_pointed_node_changed = function(pointed_thing, node)
+		if !pointed_thing then return cb("pointed_thing is nil") end
+		if !node then return cb("node is nil") end
+
+		print ('node is ' .. node)
+
+		cb()
+	end
+end
+unittests.register("test_on_mapblocks_changed", test_on_mapblocks_changed, {map=true, async=true})

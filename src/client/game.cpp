@@ -71,6 +71,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "version.h"
 #include "script/scripting_client.h"
 #include "hud.h"
+#include "../colony/build_manager.h"
+#include "../colony/events/colony_events.h"
 
 #if USE_SOUND
 	#include "client/sound_openal.h"
@@ -929,6 +931,8 @@ private:
 	// When created, these will be filled with data received from the server
 	IWritableItemDefManager *itemdef_manager = nullptr;
 	NodeDefManager *nodedef_manager = nullptr;
+	
+	BuildManager *buildManager = nullptr;
 
 	GameOnDemandSoundFetcher soundfetcher; // useful when testing
 	ISoundManager *sound = nullptr;
@@ -1087,6 +1091,7 @@ Game::~Game()
 	delete nodedef_manager;
 	delete itemdef_manager;
 	delete draw_control;
+	delete buildManager;
 
 	clearTextureNameCache();
 
@@ -1532,6 +1537,8 @@ bool Game::createClient(const GameStartData &start_data)
 
 	if (mapper && client->modsLoaded())
 		client->getScript()->on_minimap_ready(mapper);
+
+	buildManager = new BuildManager(client);
 
 	return true;
 }
@@ -2015,6 +2022,9 @@ void Game::processKeyInput()
 			toggleAutoforward();
 	} else if (wasKeyDown(KeyType::INVENTORY)) {
 		openInventory();
+	} else if (wasKeyDown(KeyType::BUILD)) {
+		printf("Start build");
+        buildManager->startBuilding();
 	} else if (input->cancelPressed()) {
 #ifdef __ANDROID__
 		m_android_chat_open = false;
@@ -3388,6 +3398,10 @@ PointedThing Game::updatePointedThing(
 			camera_offset);
 		hud->setSelectionRotation(v3f());
 		hud->setSelectedFaceNormal(result.intersection_normal);
+		
+		//client->getScript()->on_pointed_node_changed(result, n);
+		//MtEvent* event = new PointedNodeChangedEvent(result, n);
+		//client->getEventManager()->put(event);
 	}
 
 	// Update selection mesh light level and vertex colors

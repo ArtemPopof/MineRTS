@@ -30,6 +30,7 @@ class ITextureSource;
 class Inventory;
 class InventoryList;
 class LocalPlayer;
+class HudItem;
 struct ItemStack;
 
 class Hud
@@ -63,6 +64,7 @@ public:
 	void disableBlockBounds();
 	void drawBlockBounds();
 
+	void drawCustomHudItems();
 	void drawHotbar(u16 playeritem);
 	void resizeHotbar();
 	void drawCrosshair();
@@ -78,6 +80,8 @@ public:
 	void setSelectionRotation(v3f rotation) { m_selection_rotation = rotation; }
 
 	v3f getSelectionRotation() const { return m_selection_rotation; }
+
+	void addCustomHudItem(const HudItem &hudItem) { m_hud_items.push_back(hudItem);}
 
 	void setSelectionMeshColor(const video::SColor &color)
 	{
@@ -140,6 +144,8 @@ private:
 
 	scene::SMeshBuffer m_rotation_mesh_buffer;
 
+	std::vector<HudItem> m_hud_items;
+
 	enum
 	{
 		HIGHLIGHT_BOX,
@@ -176,3 +182,12 @@ void drawItemStack(
 		const v3s16 &angle,
 		const v3s16 &rotation_speed);
 
+class HudItem {
+public:
+	std::string name;
+
+	void draw() {};
+
+private:
+
+};

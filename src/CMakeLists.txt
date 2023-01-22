@@ -347,6 +347,7 @@ add_subdirectory(benchmark)
 add_subdirectory(util)
 add_subdirectory(irrlicht_changes)
 add_subdirectory(server)
+add_subdirectory(colony)
 
 set(common_SRCS
 	${database_SRCS}
@@ -421,6 +422,7 @@ set(common_SRCS
 	${JTHREAD_SRCS}
 	${common_SCRIPT_SRCS}
 	${UTIL_SRCS}
+	${colony_SRCS}
 )
 
 if(BUILD_UNITTESTS)

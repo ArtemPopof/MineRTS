@@ -111,9 +111,10 @@ public:
 		SLOT_31,
 		SLOT_32,
 
-		// Fake keycode for array size and internal checks
-		INTERNAL_ENUM_COUNT
+		BUILD,
 
+		// Fake keycode for array size and internal checks
+		INTERNAL_ENUM_COUNT,
 	};
 };
 

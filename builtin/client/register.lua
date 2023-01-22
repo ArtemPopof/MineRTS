@@ -58,8 +58,8 @@ local function make_registration()
 			mod = core.get_current_modname() or "??",
 			name = getinfo(1, "n").name or "??"
 		}
-		--local origin = core.callback_origins[func]
-		--print(origin.name .. ": " .. origin.mod .. " registering cbk " .. tostring(func))
+		local origin = core.callback_origins[func]
+		print(origin.name .. ": " .. origin.mod .. " registering cbk " .. tostring(func))
 	end
 	return t, registerfunc
 end
@@ -81,3 +81,4 @@ core.registered_on_item_use, core.register_on_item_use = make_registration()
 core.registered_on_modchannel_message, core.register_on_modchannel_message = make_registration()
 core.registered_on_modchannel_signal, core.register_on_modchannel_signal = make_registration()
 core.registered_on_inventory_open, core.register_on_inventory_open = make_registration()
+core.registered_on_pointed_node_changed, core.register_on_pointed_node_changed = make_registration()

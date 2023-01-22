@@ -288,6 +288,27 @@ bool ScriptApiClient::on_inventory_open(Inventory *inventory)
 	return readParam<bool>(L, -1);
 }
 
+bool ScriptApiClient::on_pointed_node_changed(const PointedThing &pointed, MapNode node)
+{
+	SCRIPTAPI_PRECHECKHEADER
+
+	lua_getglobal(L, "core");
+	lua_getfield(L, -1, "registered_on_pointed_node_changed");
+
+	push_pointed_thing(L, pointed, true);
+	pushnode(L, node);
+
+	try {
+		//printf("on_pointed_node_changed\n");
+		//runCallbacks(2, RUN_CALLBACKS_MODE_OR);
+	} catch (LuaError &e) {
+		getClient()->setFatalError(e);
+		return true;
+	}
+
+	return readParam<bool>(L, -1);
+}
+
 void ScriptApiClient::setEnv(ClientEnvironment *env)
 {
 	ScriptApiBase::setEnv(env);

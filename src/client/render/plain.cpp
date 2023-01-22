@@ -60,6 +60,8 @@ void DrawHUD::run(PipelineContext &context)
 		auto mapper = context.client->getMinimap();
 		if (mapper && context.show_minimap)
 			mapper->drawMinimap();
+
+		context.hud->drawCustomHudItems();
 	}
 	context.device->getGUIEnvironment()->drawAll();
 }
