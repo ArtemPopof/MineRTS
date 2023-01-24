@@ -3399,9 +3399,11 @@ PointedThing Game::updatePointedThing(
 		hud->setSelectionRotation(v3f());
 		hud->setSelectedFaceNormal(result.intersection_normal);
 		
-		//client->getScript()->on_pointed_node_changed(result, n);
-		//MtEvent* event = new PointedNodeChangedEvent(result, n);
-		//client->getEventManager()->put(event);
+		if (runData.pointed_old != result) {
+			client->getScript()->on_pointed_node_changed(result, n);
+			MtEvent* event = new PointedNodeChangedEvent(result, n);
+			client->getEventManager()->put(event);
+		}
 	}
 
 	// Update selection mesh light level and vertex colors

@@ -9,7 +9,6 @@ public:
 	MapNode n;
 	PointedThing &p;
 
-
 	PointedNodeChangedEvent(PointedThing& pointedThing, MapNode n):
 		n(n),
 		p(pointedThing)
