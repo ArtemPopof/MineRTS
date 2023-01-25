@@ -112,6 +112,7 @@ public:
 		SLOT_32,
 
 		BUILD,
+		COMMIT_BUILDING,
 
 		// Fake keycode for array size and internal checks
 		INTERNAL_ENUM_COUNT,

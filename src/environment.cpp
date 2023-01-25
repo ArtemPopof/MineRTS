@@ -108,8 +108,8 @@ inline static bool isPointableNode(const MapNode &n,
 	const NodeDefManager *nodedef , bool liquids_pointable)
 {
 	const ContentFeatures &features = nodedef->get(n);
-	return features.pointable ||
-	       (liquids_pointable && features.isLiquid());
+	return n.getParam2() != PROTOTYPE_NODE && (features.pointable ||
+	       (liquids_pointable && features.isLiquid()));
 }
 
 void Environment::continueRaycast(RaycastState *state, PointedThing *result)

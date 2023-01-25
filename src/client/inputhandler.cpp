@@ -81,6 +81,7 @@ void KeyCache::populate()
 	key[KeyType::QUICKTUNE_DEC] = getKeySetting("keymap_quicktune_dec");
 
 	key[KeyType::BUILD] = KeyPress(">");
+	key[KeyType::COMMIT_BUILDING] = KeyPress("KEY_RETURN");
 
 	for (int i = 0; i < HUD_HOTBAR_ITEMCOUNT_MAX; i++) {
 		std::string slot_key_name = "keymap_slot" + std::to_string(i + 1);

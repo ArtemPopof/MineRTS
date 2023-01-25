@@ -109,6 +109,11 @@ enum Rotation {
 };
 
 /*
+  MineColony flags
+*/
+#define PROTOTYPE_NODE 202
+
+/*
 	Masks for MapNode.param2 of flowing liquids
  */
 #define LIQUID_LEVEL_MASK 0x07
@@ -155,6 +160,7 @@ struct alignas(u32) MapNode
 	/*
 		The second parameter. Initialized to 0.
 		E.g. direction for torches and flowing water.
+		colony: 202 - not real node (used for building mockups, etc) 
 	*/
 	u8 param2;
 

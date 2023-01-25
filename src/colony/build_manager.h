@@ -29,9 +29,15 @@ public:
         delete data;
     }
 
+    void addBuildingToWorld(Client *client);
     Building *translate(irr::core::vector3d<s16> offset);
+
     Building *setOffset(irr::core::vector3d<s16> offset);
+    void setData(std::map<v3s16, content_t> *newData) { data = newData; };
     std::map<irr::core::vector3d<s16>, content_t> *getData() { return data; };
+    v3s16 getPosition() { return position; };
+
+    void print();
 };
 
 class PlannedBuilding {
@@ -48,6 +54,8 @@ public:
         delete substitutedNodes;
     }
     void setPosition(irr::core::vector3d<s16> position);
+    Building* getBuilding() { return building; };
+    Building* getSubstitutedNodes() { return substitutedNodes; };
 };
 
 class BuildManager {
@@ -64,4 +72,5 @@ public:
     BuildManager() {};
 
     void startBuilding();
+    void commitBuildingProject();
 };

@@ -2025,6 +2025,9 @@ void Game::processKeyInput()
 	} else if (wasKeyDown(KeyType::BUILD)) {
 		printf("Start build");
         buildManager->startBuilding();
+	} else if (wasKeyReleased(KeyType::COMMIT_BUILDING)) {
+		printf("Commit building");
+		buildManager->commitBuildingProject();
 	} else if (input->cancelPressed()) {
 #ifdef __ANDROID__
 		m_android_chat_open = false;
